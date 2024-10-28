@@ -45,7 +45,7 @@ namespace TDS.Game.Enemy
             bool isFinish = dist.magnitude <= 0.05f; //not o'k
             if (isFinish)
             {
-                Deactivate();
+                OnTargetReachedInvoke();
             }
 
             return isFinish;

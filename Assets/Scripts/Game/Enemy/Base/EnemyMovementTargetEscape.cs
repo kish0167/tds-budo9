@@ -19,16 +19,24 @@ namespace TDS.Game.Enemy.Base
         private void OnEnable()
         {
             _triggerObserver.OnExited += TriggerExitedCallback;
+            _movement.OnTargetReached += TargetReachedCallback;
         }
 
         private void OnDisable()
         {
             _triggerObserver.OnExited -= TriggerExitedCallback;
+            _movement.OnTargetReached -= TargetReachedCallback;
         }
 
         #endregion
 
         #region Private methods
+
+        private void TargetReachedCallback()
+        {
+            _movement.Deactivate();
+            _idle.Activate();
+        }
 
         private void TriggerExitedCallback(Collider2D col)
         {
