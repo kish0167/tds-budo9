@@ -10,13 +10,15 @@ namespace TDS.Game.Enemy
         [SerializeField] private Rigidbody2D _rb;
         [SerializeField] private float _speed = 3f;
 
+        private Transform _target;
+
         #endregion
 
         #region Unity lifecycle
 
         private void Update()
         {
-            if (IsFinished())
+            if (_target == null)
             {
                 return;
             }
@@ -27,40 +29,43 @@ namespace TDS.Game.Enemy
 
         private void OnDisable()
         {
-            _rb.velocity = Vector2.zero;
+            ResetVelocity();
+        }
+
+        #endregion
+
+        #region Public methods
+
+        public override void SetTarget(Transform target)
+        {
+            _target = target;
+
+            if (target == null)
+            {
+                ResetVelocity();
+            }
         }
 
         #endregion
 
         #region Private methods
 
-        private bool IsFinished()
-        {
-            if (Target == null)
-            {
-                return true;
-            }
-
-            Vector2 dist = transform.position - Target.transform.position;
-            bool isFinish = dist.magnitude <= 0.05f; //not o'k
-            if (isFinish)
-            {
-                OnTargetReachedInvoke();
-            }
-
-            return isFinish;
-        }
-
         private void Move()
         {
             Vector2 velocity = transform.up * _speed;
             _rb.velocity = velocity;
-            // _animation.SetMovement(direction.magnitude);
+            Animation.SetSpeed(_speed);
+        }
+
+        private void ResetVelocity()
+        {
+            _rb.velocity = Vector2.zero;
+            Animation.SetSpeed(0);
         }
 
         private void Rotate()
         {
-            transform.up = Target.position - transform.position;
+            transform.up = _target.position - transform.position;
         }
 
         #endregion

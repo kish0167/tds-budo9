@@ -3,11 +3,12 @@ using UnityEngine;
 
 namespace TDS.Game.Enemy.Base
 {
-    public class EnemyMovementAgro : EnemyBehaviour
+    public sealed class EnemyMovementAgro : EnemyBehaviour
     {
         #region Variables
 
-        [SerializeField] private TriggerObserver _triggerObserver;
+        [SerializeField] private TriggerObserver _moveObserver;
+        [SerializeField] private TriggerObserver _stopChasingObserver;
         [SerializeField] private EnemyIdle _idle;
         [SerializeField] private EnemyMovement _movement;
 
@@ -17,12 +18,30 @@ namespace TDS.Game.Enemy.Base
 
         private void OnEnable()
         {
-            _triggerObserver.OnEntered += TriggerEnteredCallback;
+            _moveObserver.OnEntered += TriggerEnteredCallback;
+
+            if (_stopChasingObserver != null)
+            {
+                _stopChasingObserver.OnExited += TriggerExitedCallback;
+            }
+            else
+            {
+                _moveObserver.OnExited += TriggerExitedCallback;
+            }
         }
 
         private void OnDisable()
         {
-            _triggerObserver.OnEntered -= TriggerEnteredCallback;
+            _moveObserver.OnEntered -= TriggerEnteredCallback;
+
+            if (_stopChasingObserver != null)
+            {
+                _stopChasingObserver.OnExited -= TriggerExitedCallback;
+            }
+            else
+            {
+                _moveObserver.OnExited -= TriggerExitedCallback;
+            }
         }
 
         #endregion
@@ -39,6 +58,17 @@ namespace TDS.Game.Enemy.Base
             _idle.Deactivate();
             _movement.Activate();
             _movement.SetTarget(col.transform);
+        }
+
+        private void TriggerExitedCallback(Collider2D col)
+        {
+            if (!col.CompareTag(Tag.Player))
+            {
+                return;
+            }
+
+            _movement.Deactivate();
+            _idle.Activate();
         }
 
         #endregion

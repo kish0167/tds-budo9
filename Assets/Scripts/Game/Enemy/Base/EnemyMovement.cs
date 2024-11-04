@@ -1,37 +1,24 @@
-using System;
 using UnityEngine;
 
 namespace TDS.Game.Enemy.Base
 {
     public abstract class EnemyMovement : EnemyBehaviour
     {
-        #region Events
+        #region Variables
 
-        public event Action OnTargetReached;
+        [SerializeField] private EnemyAnimation _animation;
 
         #endregion
 
         #region Properties
 
-        protected Transform Target { get; private set; }
+        protected EnemyAnimation Animation => _animation;
 
         #endregion
 
         #region Public methods
 
-        public void SetTarget(Transform target)
-        {
-            Target = target;
-        }
-
-        #endregion
-
-        #region Protected methods
-
-        protected void OnTargetReachedInvoke()
-        {
-            OnTargetReached?.Invoke();
-        }
+        public abstract void SetTarget(Transform target);
 
         #endregion
     }

@@ -15,6 +15,7 @@ namespace TDS.Game.Enemy.Base
         [SerializeField] private EnemyIdle _idle;
         [SerializeField] private EnemyMovementAgro _movementAgro;
         [SerializeField] private EnemyAttackAgro _attackAgro;
+        [SerializeField] private EnemyAnimation _animation;
 
         #endregion
 
@@ -56,6 +57,7 @@ namespace TDS.Game.Enemy.Base
             _idle.Deactivate();
             _attackAgro.Deactivate();
             _movementAgro.Deactivate();
+            _animation.PlayDeath();
 
             OnHappened?.Invoke();
         }

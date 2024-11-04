@@ -1,48 +1,65 @@
+using TDS.Game.Common;
 using TDS.Game.Enemy.Base;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace TDS.Game.Enemy
 {
     public class MeleeEnemyAttack : EnemyAttack
     {
-        [SerializeField] private float _attackDelay = 1f;
-        [SerializeField] private Transform _spawnPointTransform;
-        [SerializeField] private Bullet _areaOfDamagePrefab;
-        
+        #region Variables
 
-        private float _timer;
-        private void Update()
+        [Header(nameof(MeleeEnemyAttack))]
+        [SerializeField] private Transform _hitMarkerTransform;
+        [SerializeField] private float _hitRadius = 1f;
+        [SerializeField] private LayerMask _hitMask;
+        [SerializeField] private int _damage = 1;
+
+        #endregion
+
+        #region Unity lifecycle
+
+        private void OnEnable()
         {
-            if (Target == null)
+            Animation.OnAttackHit += AttackHitCallback;
+        }
+
+        private void OnDisable()
+        {
+            Animation.OnAttackHit -= AttackHitCallback;
+        }
+
+        private void OnDrawGizmosSelected()
+        {
+            if (_hitMarkerTransform == null)
             {
                 return;
             }
 
-            Rotate();
-            TryAttack();
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(_hitMarkerTransform.position, _hitRadius);
         }
-        private void Rotate()
-        {
-            transform.up = Target.position - transform.position;
-        }
-        
-        private void TryAttack()
-        {
-            _timer -= Time.deltaTime;
-            if (_timer > 0)
-            {
-                return;
-            }
 
-            Attack();
-            _timer = _attackDelay;
-        }
+        #endregion
+
+        #region Private methods
 
         private void Attack()
         {
-            // _animation.TriggerMeleeAttack();
-            Instantiate(_areaOfDamagePrefab, _spawnPointTransform.position, _spawnPointTransform.rotation);
+            Collider2D[] colliders = Physics2D.OverlapCircleAll(_hitMarkerTransform.position, _hitRadius, _hitMask);
+            foreach (Collider2D col in colliders)
+            {
+                if (col.TryGetComponent(out IDamageable damageable))
+                {
+                    damageable.ApplyDamage(_damage);
+                }
+            }
         }
+
+        private void AttackHitCallback()
+        {
+            Attack();
+        }
+
+        #endregion
     }
 }
