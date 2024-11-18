@@ -1,8 +1,8 @@
 using UnityEngine;
 
-namespace TDS.Game
+namespace TDS.Game.Player
 {
-    public class PlayerMovement : MonoBehaviour
+    public class PlayerMovement : PlayerAction
     {
         #region Variables
 
@@ -53,5 +53,10 @@ namespace TDS.Game
         }
 
         #endregion
+
+        public void Deactivate()
+        {
+            enabled = false;
+        }
     }
 }

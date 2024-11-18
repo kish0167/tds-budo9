@@ -1,8 +1,8 @@
 using UnityEngine;
 
-namespace TDS.Game
+namespace TDS.Game.Player
 {
-    public class PlayerAnimation : MonoBehaviour
+    public class PlayerAnimation : PlayerAction
     {
         #region Variables
 

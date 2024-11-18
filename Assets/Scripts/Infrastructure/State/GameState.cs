@@ -1,6 +1,8 @@
 using TDS.Game;
 using TDS.Game.Common;
+using TDS.Game.Player;
 using TDS.Service.Mission;
+using TDS.Service.Restart;
 using TDS.UI;
 using TDS.Utils.Log;
 using UnityEngine;
@@ -16,6 +18,7 @@ namespace TDS.Infrastructure.State
             this.Log();
             ServicesLocator.Get<MissionService>().Initialize();
             ServicesLocator.Get<MissionService>().Begin();
+            ServicesLocator.Get<RestartService>().Initialize();
             
             GameScreen gameScreen = Object.FindObjectOfType<GameScreen>();
             PlayerMovement playerMovement = Object.FindObjectOfType<PlayerMovement>();
