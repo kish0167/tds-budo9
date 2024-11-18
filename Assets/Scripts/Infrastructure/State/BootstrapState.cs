@@ -1,4 +1,5 @@
 using TDS.Service.Coroutine;
+using TDS.Service.Mission;
 using TDS.Service.SceneLoading;
 using TDS.Utils.Log;
 
@@ -13,9 +14,10 @@ namespace TDS.Infrastructure.State
             this.Log();
 
             ServicesLocator.Register(new SceneLoaderService());
+            ServicesLocator.RegisterMono<MissionService>();
             ServicesLocator.RegisterMono<CoroutineRunner>();
 
-            StateMachine.Enter<LoadGameState>();
+            StateMachine.Enter<LoadGameState, string>(SceneName.Game);
         }
 
         public override void Exit() { }
