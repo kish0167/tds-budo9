@@ -1,12 +1,9 @@
-using System;
-using TDS.Game;
-using TDS.Game.Common;
 using TDS.Game.Player;
 using UnityEngine;
 
-namespace TDS.Service.Restart.Conditions
+namespace TDS.Service.GameOver.Conditions
 {
-    public class PlayerDeadCondition : RestartCondition
+    public class PlayerDeadCondition : GameOverCondition
     {
         [SerializeField] private PlayerDeath _death;
 

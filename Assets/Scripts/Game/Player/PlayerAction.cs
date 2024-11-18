@@ -8,5 +8,10 @@ namespace TDS.Game.Player
         {
             enabled = false;
         }
+        
+        public void Activate()
+        {
+            enabled = true;
+        }
     }
 }

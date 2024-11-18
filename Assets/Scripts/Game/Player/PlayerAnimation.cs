@@ -8,6 +8,8 @@ namespace TDS.Game.Player
 
         private static readonly int Fire = Animator.StringToHash("fire");
         private static readonly int Movement = Animator.StringToHash("movement");
+        private static readonly int Death = Animator.StringToHash("death");
+        private static readonly int Respawn = Animator.StringToHash("respawn");
 
         [SerializeField] private Animator _animator;
 
@@ -26,5 +28,15 @@ namespace TDS.Game.Player
         }
 
         #endregion
+
+        public void PlayDeath()
+        {
+            _animator.SetTrigger(Death);
+        }
+
+        public void PlayRespawn()
+        {
+            _animator.SetTrigger(Respawn);
+        }
     }
 }

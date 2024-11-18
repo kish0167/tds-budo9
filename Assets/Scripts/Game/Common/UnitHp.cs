@@ -30,7 +30,13 @@ namespace TDS.Game.Common
 
         private void Awake()
         {
+            Reset();
+        }
+
+        public void Reset()
+        {
             _current = _start;
+            OnChanged?.Invoke(_current);
         }
 
         #endregion

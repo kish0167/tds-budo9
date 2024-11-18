@@ -3,13 +3,13 @@ using TDS.Infrastructure.Locator;
 using TDS.Utils.Log;
 using UnityEngine;
 
-namespace TDS.Service.Restart
+namespace TDS.Service.GameOver
 {
-    public class RestartService : MonoBehaviour, IService
+    public class GameOverService : MonoBehaviour, IService
     {
         #region Variables
 
-        private RestartCondition _currentCondition;
+        private GameOverCondition _currentCondition;
 
         #endregion
 
@@ -25,13 +25,17 @@ namespace TDS.Service.Restart
         {
             _currentCondition.OnMet -= ConditionMetCallback;
         }
-        
+
         public void Initialize()
         {
-            RestartConditionHolder holder = FindObjectOfType<RestartConditionHolder>();
+            GameOverConditionHolder holder = FindObjectOfType<GameOverConditionHolder>();
             _currentCondition = holder.Condition;
             _currentCondition.OnMet += ConditionMetCallback;
         }
+
+        #endregion
+
+        #region Private methods
 
         private void ConditionMetCallback()
         {

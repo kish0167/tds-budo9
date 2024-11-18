@@ -1,6 +1,7 @@
 using TDS.Service.Coroutine;
+using TDS.Service.GameOver;
 using TDS.Service.Mission;
-using TDS.Service.Restart;
+using TDS.Service.Respawn;
 using TDS.Service.SceneLoading;
 using TDS.Utils.Log;
 
@@ -17,7 +18,8 @@ namespace TDS.Infrastructure.State
             ServicesLocator.Register(new SceneLoaderService());
             ServicesLocator.RegisterMono<MissionService>();
             ServicesLocator.RegisterMono<CoroutineRunner>();
-            ServicesLocator.RegisterMono<RestartService>();
+            ServicesLocator.RegisterMono<GameOverService>();
+            ServicesLocator.RegisterMono<RespawnService>();
 
             StateMachine.Enter<LoadGameState, string>(SceneName.Game);
         }

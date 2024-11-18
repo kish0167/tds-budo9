@@ -7,7 +7,8 @@ namespace TDS.Game.Player
     public class PlayerDeath : PlayerAction
     {
         #region Variables
-
+    
+        [SerializeField] private Rigidbody2D _rb;
         [SerializeField] private UnitHp _hp;
         [SerializeField] private Collider2D _collider;
         [SerializeField] private PlayerMovement _movement;
@@ -47,11 +48,11 @@ namespace TDS.Game.Player
         private void Die()
         {
             IsDead = true;
-
+            _rb.velocity = Vector2.zero;
             _collider.enabled = false;
             _movement.Deactivate();
             _attack.Deactivate();
-            // TODO: _animation.PlayDeath(); 
+            _animation.PlayDeath();
             OnHappened?.Invoke();
         }
 
@@ -66,5 +67,10 @@ namespace TDS.Game.Player
         }
 
         #endregion
+
+        public void Reset()
+        {
+            IsDead = false;
+        }
     }
 }

@@ -1,9 +1,9 @@
 using System;
 using UnityEngine;
 
-namespace TDS.Service.Restart
+namespace TDS.Service.GameOver
 {
-    public class RestartCondition : MonoBehaviour
+    public class GameOverCondition : MonoBehaviour
     {
         public event Action OnMet;
 

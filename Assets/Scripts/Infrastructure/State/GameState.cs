@@ -1,8 +1,8 @@
-using TDS.Game;
 using TDS.Game.Common;
 using TDS.Game.Player;
+using TDS.Service.GameOver;
 using TDS.Service.Mission;
-using TDS.Service.Restart;
+using TDS.Service.Respawn;
 using TDS.UI;
 using TDS.Utils.Log;
 using UnityEngine;
@@ -18,8 +18,9 @@ namespace TDS.Infrastructure.State
             this.Log();
             ServicesLocator.Get<MissionService>().Initialize();
             ServicesLocator.Get<MissionService>().Begin();
-            ServicesLocator.Get<RestartService>().Initialize();
-            
+            ServicesLocator.Get<GameOverService>().Initialize();
+            ServicesLocator.Get<RespawnService>().Initialize();
+
             GameScreen gameScreen = Object.FindObjectOfType<GameScreen>();
             PlayerMovement playerMovement = Object.FindObjectOfType<PlayerMovement>();
             UnitHp playerHp = playerMovement.GetComponent<UnitHp>();
