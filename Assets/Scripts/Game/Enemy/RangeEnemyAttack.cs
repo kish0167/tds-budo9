@@ -1,3 +1,4 @@
+using Lean.Pool;
 using TDS.Game.Enemy.Base;
 using UnityEngine;
 
@@ -35,7 +36,7 @@ namespace TDS.Game.Enemy
         {
             base.OnPerformAttack();
 
-            Instantiate(_bulletPrefab, _spawnPointTransform.position, _spawnPointTransform.rotation);
+            LeanPool.Spawn(_bulletPrefab, _spawnPointTransform.position, _spawnPointTransform.rotation);
         }
 
         #endregion

@@ -32,7 +32,7 @@ namespace TDS.Game.Enemy.Utils
             Vector3 origin = transform.position;
             float angleStep = _angle / _segments;
             
-            float angledif = Vector2.Angle(Vector2.right, transform.up);
+            float angledif = Vector2.SignedAngle(Vector2.right, transform.up);
 
             Vector3 previousPoint = origin;
             for (int i = 0; i <= _segments; i++)
@@ -64,7 +64,7 @@ namespace TDS.Game.Enemy.Utils
                 return;
             }
 
-            float angledif = Vector2.Angle(Vector2.right, transform.up);
+            float angledif = Vector2.SignedAngle(Vector2.right, transform.up);
             
             List<Vector2> points = new() { Vector2.zero };
             

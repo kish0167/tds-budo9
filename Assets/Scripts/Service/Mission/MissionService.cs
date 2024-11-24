@@ -65,7 +65,6 @@ namespace TDS.Service.Mission
 
         private void MissionCompletedCallback()
         {
-            this.Error();
             OnCompleted?.Invoke();
         }
 

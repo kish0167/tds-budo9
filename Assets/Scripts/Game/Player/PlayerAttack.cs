@@ -1,3 +1,4 @@
+using Lean.Pool;
 using UnityEngine;
 
 namespace TDS.Game.Player
@@ -32,7 +33,7 @@ namespace TDS.Game.Player
         private void Fire()
         {
             _animation.TriggerAttack();
-            Instantiate(_bulletPrefab, _spawnPointTransform.position, _spawnPointTransform.rotation);
+            LeanPool.Spawn(_bulletPrefab, _spawnPointTransform.position, _spawnPointTransform.rotation);
         }
 
         #endregion
