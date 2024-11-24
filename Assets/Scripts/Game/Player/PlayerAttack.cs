@@ -1,4 +1,5 @@
 using Lean.Pool;
+using TDS.Game.Common;
 using UnityEngine;
 
 namespace TDS.Game.Player
@@ -9,6 +10,7 @@ namespace TDS.Game.Player
 
         [Header("Components")]
         [SerializeField] private PlayerAnimation _animation;
+        [SerializeField] private AmmoHolder _ammoHolder;
 
         [Header("Settings")]
         [SerializeField] private Bullet _bulletPrefab;
@@ -32,6 +34,12 @@ namespace TDS.Game.Player
 
         private void Fire()
         {
+            if (_ammoHolder.IsEmpty())
+            {
+                return;
+            }
+            
+            _ammoHolder.RemoveOne();
             _animation.TriggerAttack();
             LeanPool.Spawn(_bulletPrefab, _spawnPointTransform.position, _spawnPointTransform.rotation);
         }

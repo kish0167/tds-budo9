@@ -1,4 +1,5 @@
 using Lean.Pool;
+using TDS.Game.Common;
 using TDS.Game.Enemy.Base;
 using UnityEngine;
 
@@ -11,6 +12,7 @@ namespace TDS.Game.Enemy
         [Header(nameof(RangeEnemyAttack))]
         [SerializeField] private Bullet _bulletPrefab;
         [SerializeField] private Transform _spawnPointTransform;
+        [SerializeField] private AmmoHolder _ammoHolder;
 
         #endregion
 
@@ -34,8 +36,14 @@ namespace TDS.Game.Enemy
 
         protected override void OnPerformAttack()
         {
+            if (_ammoHolder.IsEmpty())
+            {
+                // Out of ammo
+                return;
+            }
+            
             base.OnPerformAttack();
-
+            _ammoHolder.RemoveOne();
             LeanPool.Spawn(_bulletPrefab, _spawnPointTransform.position, _spawnPointTransform.rotation);
         }
 
