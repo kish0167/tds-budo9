@@ -65,5 +65,10 @@ namespace TDS.Game.Common
         }
 
         #endregion
+
+        public void ApplyHealing(uint healingAmount)
+        {
+            _current = Math.Clamp((int)healingAmount, 0, _max);
+        }
     }
 }
