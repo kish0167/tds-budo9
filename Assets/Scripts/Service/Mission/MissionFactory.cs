@@ -31,6 +31,14 @@ namespace TDS.Service.Mission
                 orCompositeMission.Setup(this);
                 return orCompositeMission;
             }
+            
+            if (condition is AndCompositeMissionCondition andCompositeMissionCondition)
+            {
+                AndCompositeMission andCompositeMission = new();
+                andCompositeMission.SetCondition(andCompositeMissionCondition);
+                andCompositeMission.Setup(this);
+                return andCompositeMission;
+            }
 
             return null;
         }
