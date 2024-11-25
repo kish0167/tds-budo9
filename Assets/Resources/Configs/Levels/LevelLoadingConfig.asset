@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: LevelLoadingConfig
   m_EditorClassIdentifier: 
   _levelSceneNames:
-  - Level2
   - Level1
+  - Level2
