@@ -1,4 +1,5 @@
 using System;
+using Lean.Pool;
 using TDS.Game.Common;
 using UnityEngine;
 
@@ -16,6 +17,8 @@ namespace TDS.Game.Enemy.Base
         [SerializeField] private EnemyMovementAgro _movementAgro;
         [SerializeField] private EnemyAttackAgro _attackAgro;
         [SerializeField] private EnemyAnimation _animation;
+        [SerializeField] private EnemyLootHolder _lootHolder;  
+        
 
         #endregion
 
@@ -58,6 +61,10 @@ namespace TDS.Game.Enemy.Base
             _attackAgro.Deactivate();
             _movementAgro.Deactivate();
             _animation.PlayDeath();
+            if (_lootHolder != null)
+            {
+                LeanPool.Spawn(_lootHolder.Loot, gameObject.transform);
+            }
 
             OnHappened?.Invoke();
         }

@@ -1,9 +1,7 @@
-using System;
 using TDS.Game.Common;
 using TDS.Infrastructure.Locator;
 using TDS.Service.Respawn;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace TDS.Game.Player
 {
@@ -17,6 +15,7 @@ namespace TDS.Game.Player
         [SerializeField] private PlayerAttack _attack;
         [SerializeField] private PlayerDeath _death;
         [SerializeField] private PlayerAnimation _animation;
+        [SerializeField] private AmmoHolder _ammoHolder;
 
         private Vector3 _startPos;
 
@@ -52,6 +51,7 @@ namespace TDS.Game.Player
             _animation.PlayRespawn();
             _death.Reset();
             transform.position = _startPos;
+            _ammoHolder.ResetAmmo();
         }
 
         private void RespawnCallback()

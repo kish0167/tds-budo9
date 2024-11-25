@@ -29,6 +29,8 @@ namespace TDS.Game.Enemy
             {
                 _points[i] = transform.GetChild(i);
             }
+
+            _currentIndex = 0;
         }
 
         public Transform GetCurrentPoint()

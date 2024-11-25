@@ -14,7 +14,7 @@ namespace TDS.Game.PickUps
                 return;
             }
 
-            unitHp.ApplyHealing(_healingAmount);
+            unitHp.Change((int)_healingAmount);
             base.ApplyEffects(receiver);
         }
     }
